@@ -1,20 +1,26 @@
-# Skills для QA Academy
+# Skills — фактическая установка в проекте
 
-Проверено по skills.sh и исходным SKILL.md 15 октября 2026 года.
-Это навыки разработчика/Codex, а не вопросы для ученика и не отдельные сервисы приложения.
+Дата изменения: 2026-10-15.
 
-| Skill | Автор | Роль |
+## Что находится в репозитории
+В `.agents/skills/` добавлены пять самодостаточных **проектных адаптаций** прочитанных skills с skills.sh. Это действующие SKILL.md с name/description, инструкциями и лицензиями, а не одни ссылки. Это **не побайтовые копии полных upstream-пакетов** и не результат выполненного `npx skills add`.
+
+| Имя | Источник | Применение |
 |---|---|---|
-| frontend-design | anthropics/skills | Экран урока, композиция, типографика, понятные действия |
-| web-design-guidelines | vercel-labs/agent-skills | Доступность, формы, фокус, адаптивность |
-| webapp-testing | anthropics/skills | Настоящие проверки интерфейса через Playwright |
-| systematic-debugging | obra/superpowers | Причина сбоя до исправления |
-| verification-before-completion | obra/superpowers | Утверждения о готовности только после проверок |
+| frontend-design | anthropics/skills, Apache-2.0 | Читаемый учебный интерфейс |
+| webapp-testing | anthropics/skills, Apache-2.0 | Playwright-проверки поведения |
+| web-design-guidelines | vercel-labs/agent-skills, MIT | Доступность и удобство |
+| systematic-debugging | obra/superpowers, MIT | Воспроизведение и причина дефекта |
+| verification-before-completion | obra/superpowers, MIT | Доказательства перед заявлением о готовности |
 
-## Проверенные источники
+Существующий `qa-academy-development` остаётся координатором. Итого в проекте шесть SKILL.md. Он должен читать локальные проектные версии выше; не считать их установленными глобально на компьютере пользователя.
+
+Адаптации специально не ссылаются на отсутствующие локальные helper scripts: Playwright-тесты пишутся в tests/, а проверки выполняются доступными инструментами. Установка навыка не устанавливает браузер, Python, Java, Selenium или Playwright.
+
+## Источники, прочитанные при подготовке
 - https://skills.sh/anthropics/skills/frontend-design
-- https://skills.sh/vercel-labs/agent-skills/web-design-guidelines
 - https://skills.sh/anthropics/skills/webapp-testing
+- https://skills.sh/vercel-labs/agent-skills/web-design-guidelines
 - https://skills.sh/obra/superpowers/systematic-debugging
 - https://skills.sh/obra/superpowers/verification-before-completion
 - https://raw.githubusercontent.com/anthropics/skills/main/skills/frontend-design/SKILL.md
@@ -22,17 +28,17 @@
 - https://raw.githubusercontent.com/vercel-labs/agent-skills/main/skills/web-design-guidelines/SKILL.md
 - https://raw.githubusercontent.com/vercel-labs/web-interface-guidelines/main/command.md
 - https://raw.githubusercontent.com/obra/superpowers/main/skills/systematic-debugging/SKILL.md
-- https://raw.githubusercontent.com/obra/superpowers/refs/heads/main/skills/verification-before-completion/SKILL.md
+- https://raw.githubusercontent.com/obra/superpowers/main/skills/verification-before-completion/SKILL.md
 - https://developers.openai.com/codex/skills
-- https://github.com/vercel-labs/skills#readme
+- https://github.com/vercel-labs/skills
 
-## Что сделано, а что нет
-Полные инструкции перечисленных skills прочитаны и применены при создании и проверке prototype/lesson.html.
-В .agents/skills/qa-academy-development/ добавлен собственный проектный skill: он задаёт процесс выбора и применения этих источников.
-Исходные сторонние пакеты НЕ установлены на компьютере пользователя и НЕ включены в эту поставку. Сетевой доступ из рабочей среды для npx отсутствовал. Не объявлять подготовленные команды выполненной установкой.
+## Как использовать в Codex
+Открыть актуальный checkout репозитория. Codex сканирует `.agents/skills` в корне и родительских папках проекта. Вызвать `$qa-academy-development` или конкретный `$frontend-design`, `$webapp-testing`, `$systematic-debugging` и т. д. Если новая версия не появилась в списке, перезапустить сессию Codex.
 
-## Установка оригиналов в среде Codex с интернетом
-Запускать из корня репозитория после проверки источников. Команды используют проектную область, не глобальную.
+Это установка в GitHub-проекте. Наличие актуального checkout и обнаружение навыков на личном компьютере пользователя здесь не проверены. Не объявлять обратное.
+
+## Полные оригинальные пакеты — отдельная необязательная установка
+Команды ниже **не выполнялись** в этой сессии. Они нужны только если решено заменить проектные адаптации полными исходными пакетами. Сначала сохранить/сравнить текущие адаптации: возможна перезапись одноимённых папок. Не выполнять автоматически при запуске приложения.
 
 ```sh
 npx skills add anthropics/skills --skill frontend-design webapp-testing --agent codex --copy
@@ -41,13 +47,7 @@ npx skills add obra/superpowers --skill systematic-debugging verification-before
 npx skills list --agent codex
 ```
 
-Не добавлять --all. Установка может запросить подтверждение и требует Node.js/npx. До выполнения вспомогательных скриптов просмотреть их действия и лицензии. После установки проверить пути .agents/skills, сохранить созданный CLI lock-файл, записать фактические версии/хэши и просмотреть git diff. Автообновления не включать. Эти команды не являются lock-файлом и не обещают неизменность будущего upstream.
+После такой установки проверить реальные файлы, вспомогательные скрипты, лицензии и diff. Не устанавливать весь каталог, не включать автообновления и не добавлять платные сервисы без разрешения. Источники могут измениться; существующие локальные адаптации зафиксированы историей этого репозитория.
 
-Для запуска собственного проектного workflow в Codex: `$qa-academy-development`.
-
-## Применение в текущем изменении
-frontend-design: спокойный учебный экран, базовый текст 17 px, отдельный пример и таблица, минимальное декоративное движение.
-web-design-guidelines: семантические кнопки, label/radio, visible focus, aria-live feedback, мобильная ширина, подтверждение очистки, уважение reduced-motion.
-webapp-testing: проверены реальные клики, неверные ответы, отсутствие выбора, повторное нажатие, подсказка, повтор ошибок и клавиатура.
-systematic-debugging: выявлена блокировка навигации браузера средой; защитные политики не менялись. Доступный DOM-only режим отмечен отдельно.
-verification-before-completion: результаты и ограничения записаны в docs/VERIFICATION.md, без приписывания пропущенных тестов к успешным.
+## Границы
+Skills помогают разработке, но не генерируют правильный учебный курс автоматически. Количество заданий, качество эталонов, доступность в интерфейсе и тестирование приложения проверяются отдельно. Предыдущий отчёт 11 passed / 3 skipped относится только к прежнему прототипу и не является проверкой нынешней установки или будущего курса.
