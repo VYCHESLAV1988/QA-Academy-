@@ -1,125 +1,89 @@
 <!doctype html>
-<html lang="ru">
+<html lang="ru" data-ui-version="4">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>QA Academy — SQL с понятным разбором</title>
-<style>
-:root{color-scheme:light;--bg:#f3f6fa;--paper:#fff;--ink:#18283d;--muted:#50617a;--line:#cbd5e3;--accent:#174db5;--soft:#eaf1ff;--good:#14623b;--bad:#9e2732;--code:#eef2f7;font-family:"Segoe UI",Arial,sans-serif;font-size:17px}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);line-height:1.65}button,input{font:inherit}button{cursor:pointer;border:1px solid var(--line);border-radius:9px;background:var(--paper);color:var(--ink);padding:11px 19px;min-height:46px;font-weight:600;touch-action:manipulation}button:hover{border-color:var(--accent);background:var(--soft)}button:disabled{cursor:default;opacity:.65}a{color:var(--accent)}:focus-visible{outline:3px solid var(--accent);outline-offset:4px}.primary{background:var(--accent);color:#fff;border-color:var(--accent)}[hidden]{display:none!important}.skip{position:absolute;top:-100px;background:var(--paper);padding:10px;z-index:3}.skip:focus{top:0}.wrap{max-width:1220px;margin:auto;padding:28px 32px}header{display:flex;align-items:center;justify-content:space-between;gap:18px;border-bottom:1px solid var(--line);padding-bottom:22px}.brand{font-size:24px;font-weight:750}.brand span{background:var(--accent);color:#fff;border-radius:10px;padding:6px 10px;margin-right:10px}header p{margin:3px 0 0;color:var(--muted);font-size:14px}.layout{display:grid;grid-template-columns:236px minmax(0,1fr);gap:40px;padding-top:32px}aside h2{font-size:16px;color:var(--muted)}nav{display:grid;gap:8px}nav button{border-color:transparent;background:transparent;text-align:left}nav button[aria-current="step"]{background:var(--soft);color:var(--accent)}.note{font-size:15px;color:var(--muted);padding-top:22px;border-top:1px solid var(--line);margin-top:25px}h1{font-size:clamp(28px,4vw,39px);line-height:1.25;letter-spacing:-.7px;margin:10px 0 16px}h2{font-size:24px;line-height:1.4}h3{font-size:19px}.lead{color:var(--muted);font-size:18px}.paper{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:26px 30px}.tag{display:inline-block;color:var(--accent);background:var(--soft);border-radius:7px;padding:3px 10px;font-size:14px;font-weight:600}.table-wrap{overflow:auto;margin:16px 0}table{width:100%;border-collapse:collapse;font-size:16px;text-align:left;font-variant-numeric:tabular-nums}caption{text-align:left;margin-bottom:8px;font-weight:650}th,td{padding:10px 12px;border-bottom:1px solid var(--line)}th{background:var(--code)}pre{background:var(--code);border-radius:8px;padding:16px;overflow:auto;font-size:16px;line-height:1.65}code{font-family:Consolas,"Courier New",monospace;overflow-wrap:anywhere}.actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:24px}.small{font-size:14px;color:var(--muted)}.progress-line{display:flex;justify-content:space-between;gap:16px;color:var(--muted);font-size:14px}progress{width:100%;height:9px;accent-color:var(--accent)}fieldset{padding:0;margin:24px 0;border:0;min-width:0}legend{font-size:23px;font-weight:650;line-height:1.4;margin-bottom:10px;max-width:100%}.choice{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;margin:10px 0;border:1px solid var(--line);border-radius:10px;cursor:pointer}.choice:has(input:checked){border-color:var(--accent);background:var(--soft)}.choice input{width:19px;height:19px;flex-shrink:0;margin-top:5px;accent-color:var(--accent)}.choice.correct{border:2px solid var(--good)}.choice.wrong{border:2px solid var(--bad)}.choice.wrong:has(input:checked){border-color:var(--bad)}.choice.correct:has(input:checked){border-color:var(--good)}.mark{display:block;font-weight:700;font-size:14px}.feedback{margin-top:22px;border-left:4px solid var(--accent);padding:18px 22px;background:var(--code);border-radius:0 8px 8px 0}.feedback.correct{border-color:var(--good)}.feedback.wrong{border-color:var(--bad)}.feedback h3{margin-top:0}.feedback li{margin:10px 0}.error{color:var(--bad);font-weight:600}.two{display:grid;grid-template-columns:1fr 1fr;gap:22px}.metric{padding:18px;background:var(--code);border-radius:10px}.result-number{font-size:36px;font-weight:700;margin:8px 0}.warning{padding:12px 16px;border:1px solid var(--bad);border-radius:8px;margin-top:16px}.list-result{padding:0;list-style:none}.list-result li{padding:15px 0;border-bottom:1px solid var(--line)}.list-result b{display:block}.theme-dark{color-scheme:dark;--bg:#182333;--paper:#223148;--ink:#edf3fc;--muted:#b7c6db;--line:#4f627b;--accent:#a3c3ff;--soft:#2d4464;--good:#76d9a1;--bad:#ffb3bb;--code:#1a283c}.theme-dark .primary,.theme-dark .brand span{color:#18283d}main{min-width:0}footer{padding:25px 0;color:var(--muted);font-size:14px}details{margin:16px 0}summary{cursor:pointer;font-weight:650}details p{margin:10px 0}@media(max-width:850px){.layout{grid-template-columns:1fr;gap:20px}nav{grid-template-columns:repeat(3,1fr)}nav button{text-align:center;padding:10px 5px;font-size:14px}aside h2,.note{display:none}.two{grid-template-columns:1fr}.wrap{padding:18px}.paper{padding:20px}}@media(max-width:420px){.wrap{padding:14px}.paper{padding:16px}.actions button{width:100%}header button{font-size:14px;padding:9px}legend{font-size:21px}}@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
-</style>
+<title>QA Academy · SQL Foundations</title>
+<link rel="stylesheet" href="lesson.css">
 </head>
 <body>
 <a class="skip" href="#main">Перейти к уроку</a>
 <div class="wrap">
-<header><div><div class="brand"><span aria-hidden="true">qa</span>QA Academy</div><p>SQL · Учебный прототип · Редакция вопросов 2</p></div><button id="theme" aria-pressed="false">Тёмная тема</button></header>
-<div id="load-error" class="warning" role="alert">Загрузка вопросов… Если сообщение не исчезает, проверь, что рядом с lesson.html находится sql-foundations.js.</div>
-<div id="storage-warning" class="warning" role="status" hidden>Браузер запретил сохранение. Прогресс доступен только до закрытия страницы.</div>
+<header>
+ <div><div class="brand"><span aria-hidden="true">qa</span>QA Academy</div><p>Junior QA · Interview practice</p></div>
+ <div class="header-tools"><span class="language-badge" lang="en">EN + RU</span><button id="theme" aria-pressed="false">Тёмная тема</button></div>
+</header>
+<div id="load-error" class="warning" role="alert">Загружаем урок… Если загрузка не завершится, открой файл из полной папки приложения.</div>
+<noscript><p class="warning">Для работы учебного экрана разреши выполнение скриптов в браузере.</p></noscript>
+<div id="storage-warning" class="warning" role="status" hidden>Не удалось сохранить прогресс. Не закрывай страницу, пока не закончишь занятие.</div>
 <div id="content-notice" class="warning" role="status" hidden></div>
 <div class="layout">
-<aside><h2>SQL · Восстановление основ</h2><nav aria-label="Этапы урока"><button data-view="learn">1. Разобраться</button><button data-view="practice">2. Потренироваться</button><button data-view="results">3. Мой результат</button></nav><p class="note">Сначала правило и пример. Затем вопрос и подробный разбор.<br><br>Учебный язык автоматизации — <strong>Java</strong>.</p></aside>
+<aside>
+ <h2>SQL Foundations</h2>
+ <nav aria-label="Этапы урока">
+  <button data-view="learn"><span class="nav-number">01</span>Разобраться</button>
+  <button data-view="practice"><span class="nav-number">02</span>Практика</button>
+  <button data-view="results"><span class="nav-number">03</span>Мой результат</button>
+ </nav>
+ <div class="side-card"><b>От понимания к ответу</b><p>Читаем вопрос на английском. Разбираем смысл на русском. Учимся объяснять решение.</p></div>
+</aside>
 <main id="main" tabindex="-1">
-<section id="learn"><span class="tag">Восстановление основ</span><h1>Вспомним SQL. Спокойно, шаг за шагом.</h1><p class="lead">У каждого задания свои явно указанные данные. Баллы показывают результат ответа, а не твой общий уровень.</p><div class="paper"><h2>Что показать и откуда взять?</h2><p><code>SELECT</code> задаёт столбцы результата, <code>FROM</code> — исходную таблицу. Столбцы перечисляются через запятую.</p><pre><code>SELECT name, price
-FROM products;</code></pre><div id="intro-table"></div><h3>Как отобрать строки?</h3><p><code>WHERE price &lt; 2500</code> оставит цены меньше 2500. <code>&gt;</code> — больше; <code>&lt;=</code> и <code>&gt;=</code> включают равенство. <code>stock</code> — количество единиц на складе.</p><pre><code>SELECT name, price, stock
+<section id="learn">
+ <span class="eyebrow" lang="en">SQL · Foundations</span>
+ <h1>Понимать запрос.<br>Уметь объяснить ответ.</h1>
+ <p class="lead">Шесть основных заданий: SELECT, WHERE, AND и сортировка. Разберём каждую тему и закрепим её на новом примере.</p>
+ <div class="paper">
+  <h2 lang="en">What does this query return?</h2>
+  <p class="translation">Что вернёт этот запрос?</p>
+  <pre translate="no"><code>SELECT name, price
+FROM products;</code></pre>
+  <p><strong>SELECT</strong> задаёт столбцы — <span lang="en">columns</span>. <strong>FROM</strong> указывает таблицу — <span lang="en">table</span>. Запрос покажет названия и цены всех товаров; столбец stock в результате не нужен.</p>
+  <div id="intro-table"></div>
+  <h3 lang="en">Filter rows with WHERE</h3>
+  <p><strong>WHERE</strong> отбирает строки — <span lang="en">rows</span>. Условие <code translate="no">price &lt; 2500</code> означает «цена меньше 2500». На английском: <span lang="en">price is less than 2500</span>.</p>
+  <pre translate="no"><code>SELECT name, price, stock
 FROM products
 WHERE price &lt; 2500
-  AND stock &gt; 0;</code></pre><p><code>AND</code> означает «И»: нужны и подходящая цена, и наличие товара. Подходящая цена при нулевом остатке — недостаточна.</p><h3>Как задать порядок?</h3><p><code>ORDER BY price ASC</code> — от дешёвого к дорогому. <code>ORDER BY price DESC</code> — от дорогого к дешёвому. Без ORDER BY порядок строк не гарантируется.</p><div class="actions"><button id="start" class="primary">К практике</button><span class="small">6 вопросов · Без таймера</span></div></div></section>
-<section id="practice" hidden><span class="tag">Условие → ответ → разбор</span><h1>Пробуем самостоятельно</h1><p class="lead">Прочитай условие и данные. Выбери один правильный ответ.</p><div class="paper"><div class="progress-line"><span id="position"></span><span id="mode"></span></div><progress id="progress" max="6" value="0" aria-label="Завершённые задания"></progress><p id="context"></p><div id="task-table"></div><pre id="query-wrap" translate="no"><code id="query"></code></pre><form id="answer-form"><fieldset id="answers"></fieldset><p class="small">Верный вариант — 5 баллов, неверный — 0. Это выбор ответа, не оценивание развёрнутого объяснения.</p><p id="answer-error" class="error" role="alert" hidden>Выбери один ответ. Пустая отправка не оценивается.</p><div class="actions"><button type="submit" id="check" class="primary">Проверить ответ</button><button type="button" id="hint">Нужна подсказка</button></div></form><div id="hint-text" class="feedback" role="status" hidden></div><div id="feedback" class="feedback" tabindex="-1" role="status" hidden></div><div class="actions"><button id="next" class="primary" hidden>Следующее задание</button></div></div></section>
-<section id="results" hidden><span class="tag">Результаты этого урока</span><h1>Мой результат</h1><p class="lead">Ответы с подсказкой и самостоятельные ответы учитываются отдельно.</p><div class="paper"><div class="two"><div class="metric">Проверено заданий<p id="done-count" class="result-number">0 / 6</p></div><div class="metric">Самостоятельно с первого раза<p id="first-count" class="result-number">0 / 6</p></div></div><p id="summary" role="status"></p><ul id="result-list" class="list-result"></ul><div class="actions"><button id="review" class="primary">Повторить ошибки</button><button id="again">Все задания заново</button><button id="reset">Очистить прогресс</button></div><p class="small">Хранение — только в этом браузере, не в аккаунте. После переноса файлов браузер может считать их новым местом хранения.</p></div></section>
-</main></div><footer>6 проверенных вводных заданий по SQL. Не полный курс и не официальный экзамен ISTQB. Произвольный SQL или Java-код в этом прототипе не выполняется.</footer>
-</div>
+  AND stock &gt; 0;</code></pre>
+  <p><strong>AND — both conditions must be met.</strong> Должны выполняться оба условия: подходящая цена и наличие товара. Если телефон стоит 2200 ₪, но закончился, запрос его не покажет.</p>
+  <h3 lang="en">Sort the result with ORDER BY</h3>
+  <p><code translate="no">ORDER BY price ASC</code> — от дешёвых к дорогим: <span lang="en">ascending order</span>. <code translate="no">DESC</code> — наоборот: <span lang="en">descending order</span>. Без ORDER BY порядок строк не гарантирован.</p>
+  <details><summary>Ключевые термины · Key terms</summary><dl class="terms"><div><dt lang="en">Query</dt><dd>Запрос к базе данных</dd></div><div><dt lang="en">Result set</dt><dd>Строки и столбцы, возвращённые запросом</dd></div><div><dt lang="en">Column / Row</dt><dd>Столбец / строка таблицы</dd></div><div><dt lang="en">Condition</dt><dd>Условие, которому должна соответствовать строка</dd></div></dl></details>
+  <div class="actions"><button id="start" class="primary">К практике</button><span class="small">В своём темпе, без таймера</span></div>
+ </div>
+</section>
+<section id="practice" hidden>
+ <span class="eyebrow" lang="en">SQL · Interview practice</span>
+ <h1>Практика</h1><p class="lead">Прочитай вопрос. Выбери ответ. Разберём решение вместе.</p>
+ <div class="paper">
+  <div class="progress-line"><span id="position"></span><span id="mode"></span></div>
+  <progress id="progress" max="6" value="0" aria-label="Завершённые задания"></progress>
+  <h2 id="question-title" class="question-title" lang="en"></h2>
+  <p id="question-translation" class="translation question-translation"></p>
+  <p id="context-en" class="question-context" lang="en"></p>
+  <p id="context" class="translation"></p>
+  <div class="question-toolbar"><label class="translation-toggle"><input id="translations" type="checkbox" checked>Показывать перевод</label><span class="small" lang="en">Choose one answer</span></div>
+  <div class="task-grid"><div><pre id="query-wrap" translate="no"><code id="query"></code></pre></div><div id="task-table"></div></div>
+  <form id="answer-form"><fieldset id="answers" aria-describedby="question-title"></fieldset>
+   <p id="answer-error" class="error" role="alert" hidden>Выбери один вариант, затем проверим его.</p>
+   <div class="actions"><button type="submit" id="check" class="primary">Проверить ответ</button><button type="button" id="hint">Нужна подсказка</button></div>
+  </form>
+  <div id="hint-text" class="feedback" role="status" hidden></div>
+  <div id="feedback" class="feedback" tabindex="-1" aria-label="Разбор ответа" hidden></div>
+  <div class="actions"><button id="next" class="primary" hidden>Следующее задание</button><button id="back-explanation" hidden>Вернуться к объяснению</button></div>
+ </div>
+</section>
+<section id="results" hidden>
+ <span class="eyebrow" lang="en">SQL · My progress</span><h1>Мой результат</h1><p class="lead">Здесь видно, что уже получилось и к чему стоит вернуться.</p>
+ <div class="paper"><div class="two"><div class="metric">Проверено заданий<p id="done-count" class="result-number">0 / 6</p></div><div class="metric">Самостоятельно с первого раза<p id="first-count" class="result-number">0 / 6</p></div></div>
+ <p id="summary" role="status"></p><ul id="result-list" class="list-result"></ul>
+ <div class="actions"><button id="review" class="primary">Повторить ошибки</button><button id="again">Все задания заново</button></div>
+ <details><summary>Управление прогрессом</summary><p class="small">Ответы сохраняются в этом браузере. При переносе файлов в другую папку браузер может использовать другое место хранения.</p><button id="reset">Очистить прогресс</button></details>
+ </div>
+</section>
+</main></div></div>
 <script src="sql-foundations.js"></script>
-<script>
-'use strict';
-const questions=window.QA_SQL_QUESTIONS;
-const KEY='qa-academy-lesson-v1';
-const $=id=>document.getElementById(id);
-function el(tag,text,cls){const n=document.createElement(tag);if(text!==undefined)n.textContent=text;if(cls)n.className=cls;return n}
-let state={version:1,attempts:[],theme:'light',queue:[],index:0};
-let storageOK=true,assisted=false,checked=false;
-if(!Array.isArray(questions)||questions.length!==6){throw new Error('Учебные материалы не загружены. Скачай полную папку prototype.');}
-state.queue=questions.map(q=>q.id);
-function contentVersion(a){return Number.isInteger(a.contentVersion)?a.contentVersion:1}
-function validAttempt(a){return a&&questions.some(q=>q.id===a.id)&&Number.isInteger(a.selected)&&a.selected>=0&&a.selected<3&&typeof a.assisted==='boolean'&&typeof a.at==='string'}
-try{
- const saved=JSON.parse(localStorage.getItem(KEY)||'null');
- if(saved&&saved.version===1&&Array.isArray(saved.attempts)){
-  state.attempts=saved.attempts.filter(validAttempt);state.theme=saved.theme==='dark'?'dark':'light';
-  if(Array.isArray(saved.queue)&&saved.queue.length&&saved.queue.every(id=>questions.some(q=>q.id===id))){state.queue=[...new Set(saved.queue)];state.index=Number.isInteger(saved.index)?Math.max(0,Math.min(saved.index,state.queue.length-1)):0;}
- }
-}catch(e){if(!(e instanceof SyntaxError))storageOK=false;}
-function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){storageOK=false}$('storage-warning').hidden=storageOK;showArchiveNotice()}
-function showArchiveNotice(){const old=state.attempts.filter(a=>contentVersion(a)!==2).length;$('content-notice').hidden=old===0;$('content-notice').textContent=`Формулировки обновлены. Прежних попыток сохранено: ${old}. Они не потеряны, но не засчитываются как ответы на новую редакцию.`}
-function setTheme(){const dark=state.theme==='dark';document.body.classList.toggle('theme-dark',dark);$('theme').setAttribute('aria-pressed',String(dark));$('theme').textContent=dark?'Светлая тема':'Тёмная тема'}
-function current(){return questions.find(q=>q.id===state.queue[state.index])}
-function score(a){return a.selected===questions.find(q=>q.id===a.id).answer?5:0}
-function attemptsFor(id){return state.attempts.filter(a=>a.id===id&&contentVersion(a)===2)}
-function latest(id){return attemptsFor(id).at(-1)}
-function table(columns,rows,caption){
- const box=el('div',undefined,'table-wrap'),t=el('table');t.append(el('caption',caption));const head=el('thead'),tr=el('tr');
- columns.forEach(c=>{const th=el('th',c);th.scope='col';tr.append(th)});head.append(tr);t.append(head);const body=el('tbody');
- rows.forEach(r=>{const row=el('tr');r.forEach(v=>row.append(el('td',String(v))));body.append(row)});t.append(body);box.append(t);
- if(!rows.length)box.append(el('p','Нет строк: ни один товар не прошёл условия. Это не ошибка запроса.'));return box;
-}
-function route(view,focus=true){
- if(!['learn','practice','results'].includes(view))view='learn';
- for(const name of ['learn','practice','results'])$(name).hidden=name!==view;
- document.querySelectorAll('[data-view]').forEach(b=>{if(b.dataset.view===view)b.setAttribute('aria-current','step');else b.removeAttribute('aria-current')});
- if(view==='practice')renderQuestion();if(view==='results')renderResults();
- try{history.replaceState(null,'','#'+view)}catch(e){/* Opaque DOM previews may not support history. */}
- if(focus)$('main').focus();
-}
-function renderQuestion(){
- assisted=false;checked=false;const q=current();
- $('position').textContent=`Задание ${state.index+1} из ${state.queue.length}`;$('mode').textContent=state.queue.length<questions.length?'Повторение ошибок':'Учебная практика';
- $('progress').max=state.queue.length;$('progress').value=state.index;$('context').textContent=q.context;
- $('task-table').replaceChildren(table(q.columns,q.rows,'Данные именно этого задания · products'));
- $('query').textContent=q.query;$('query-wrap').hidden=!q.query;
- const fs=$('answers');fs.replaceChildren(el('legend',q.title));
- q.displayOrder.forEach(i=>{const label=el('label',undefined,'choice'),input=el('input'),text=el('span',q.choices[i]);input.type='radio';input.name='answer';input.value=String(i);label.append(input,text);fs.append(label)});
- for(const id of ['hint-text','feedback','next','answer-error'])$(id).hidden=true;
- $('check').disabled=false;$('hint').disabled=false;$('next').textContent=state.index===state.queue.length-1?'Посмотреть результат':'Следующее задание';
-}
-function showFeedback(q,a){
- const points=score(a),box=$('feedback');box.className='feedback '+(points===5?'correct':'wrong');box.replaceChildren();
- box.append(el('h3',points===5?'Ответ верный · 5 / 5':'Ответ неверный · 0 / 5'));
- box.append(el('p','Твой ответ: '+q.choices[a.selected]));
- box.append(el('p','Правильный ответ: '+q.choices[q.answer]));
- box.append(el('p',q.why[a.selected]));box.append(el('h3','Разберём по шагам'));
- const steps=el('ol');q.steps.forEach(s=>steps.append(el('li',s)));box.append(steps,el('p','Запомни: '+q.rule));
- const result=el('details');result.append(el('summary','Посмотреть ожидаемый результат SQL'));
- result.append(el('p','Это заранее проверенный пример. Браузер не исполняет SQL. Порядок строк гарантирован только при ORDER BY.','small'));
- const pre=el('pre');pre.append(el('code',q.verification.sql));result.append(pre,table(q.verification.columns,q.verification.rows,'Ожидаемый результат'));box.append(result);
- const source=el('a','Источник: документация SQLite SELECT');source.href=q.source;source.target='_blank';source.rel='noopener noreferrer';box.append(source);
- box.append(el('p',a.assisted?'Ответ с подсказкой: отдельно от самостоятельных.':'Ответ без подсказки. Повторная отправка этого ответа не добавит баллы.','small'));
- document.querySelectorAll('input[name="answer"]').forEach(input=>{
-  input.disabled=true;const label=input.closest('label'),idx=Number(input.value);
-  if(idx===q.answer){label.classList.add('correct');label.lastChild.append(el('span','Правильный ответ','mark'));}
-  else if(idx===a.selected){label.classList.add('wrong');label.lastChild.append(el('span','Твой ответ — неверный','mark'));}
- });
- box.hidden=false;$('check').disabled=true;$('hint').disabled=true;$('next').hidden=false;box.focus();
-}
-$('answer-form').addEventListener('submit',e=>{
- e.preventDefault();if(checked)return;const chosen=document.querySelector('input[name="answer"]:checked');
- if(!chosen){$('answer-error').hidden=false;document.querySelector('input[name="answer"]').focus();return;}
- const selected=Number(chosen.value);if(!Number.isInteger(selected)||selected<0||selected>2)return;
- checked=true;$('answer-error').hidden=true;const q=current(),a={id:q.id,selected,assisted,contentVersion:q.version,at:new Date().toISOString()};
- state.attempts.push(a);save();$('progress').value=state.index+1;showFeedback(q,a);
-});
-$('hint').addEventListener('click',()=>{assisted=true;$('hint-text').textContent=current().hint;$('hint-text').hidden=false;$('hint').disabled=true});
-$('next').addEventListener('click',()=>{if(state.index<state.queue.length-1){state.index++;save();renderQuestion();$('main').focus()}else route('results')});
-function renderResults(){
- const done=questions.filter(q=>latest(q.id)),first=questions.filter(q=>{const a=attemptsFor(q.id)[0];return a&&score(a)===5&&!a.assisted}),wrong=done.filter(q=>score(latest(q.id))<5);
- $('done-count').textContent=`${done.length} / ${questions.length}`;$('first-count').textContent=`${first.length} / ${questions.length}`;
- $('summary').textContent=!done.length?'Пока нет ответов на редакцию 2. Начни с объяснения.':wrong.length?`Для повторения: ${wrong.length}.`:'Все выполненные задания решены верно. Это результат этого урока, не всей подготовки QA.';
- $('result-list').replaceChildren();done.forEach(q=>{const a=latest(q.id),li=el('li');li.append(el('b',q.title),el('span',`${score(a)} / 5 · ${a.assisted?'с подсказкой':'без подсказки'} · попыток в этой редакции: ${attemptsFor(q.id).length}`));$('result-list').append(li)});
-}
-$('review').addEventListener('click',()=>{const ids=questions.filter(q=>latest(q.id)&&score(latest(q.id))<5).map(q=>q.id);if(!ids.length){$('summary').textContent='Ошибок для повторения нет. Можно пройти все задания заново.';return;}state.queue=ids;state.index=0;save();route('practice')});
-$('again').addEventListener('click',()=>{state.queue=questions.map(q=>q.id);state.index=0;save();route('practice')});
-$('reset').addEventListener('click',()=>{if(!confirm('Удалить историю этого урока, включая прежнюю редакцию, в текущем браузере?'))return;state.attempts=[];state.queue=questions.map(q=>q.id);state.index=0;save();renderResults()});
-$('start').addEventListener('click',()=>route('practice'));document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>route(b.dataset.view)));
-$('theme').addEventListener('click',()=>{state.theme=state.theme==='light'?'dark':'light';setTheme();save()});
-window.addEventListener('hashchange',()=>route(location.hash.slice(1)));
-$('intro-table').append(table(questions[0].columns,questions[0].rows,'Пример таблицы products'));
-setTheme();showArchiveNotice();$('storage-warning').hidden=storageOK;$('load-error').hidden=true;route(location.hash.slice(1)||'learn',false);
-</script>
-</body></html>
+<script src="tutor-feedback.js"></script>
+<script src="interview-language.js"></script>
+<script src="lesson.js"></script>
+</body>
+</html>
